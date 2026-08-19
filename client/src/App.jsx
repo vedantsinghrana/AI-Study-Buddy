@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Documents from "./pages/Documents";
 import DocumentDetail from "./pages/DocumentDetail";
+import Quiz from "./pages/Quiz";
 
 export default function App() {
   return (
@@ -28,6 +29,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <DocumentDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/documents/:id/quiz"
+            element={
+              <ProtectedRoute>
+                <Quiz />
               </ProtectedRoute>
             }
           />
