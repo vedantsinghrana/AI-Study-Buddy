@@ -76,10 +76,14 @@ export default function Flashcards() {
 
   return (
     <div className="max-w-xl mx-auto px-5 py-14 animate-fade-in-up">
-      <div className="h-1 bg-black/[0.06] rounded-full mb-6 overflow-hidden">
+      <div className="h-1 bg-blue-50 rounded-full mb-6 overflow-hidden">
         <div
-          className="h-full bg-gray-900 rounded-full"
-          style={{ width: `${progress}%`, transition: "width 0.35s cubic-bezier(0.16,1,0.3,1)" }}
+          className="h-full rounded-full"
+          style={{
+            width: `${progress}%`,
+            background: "var(--gradient-primary)",
+            transition: "width 0.35s cubic-bezier(0.16,1,0.3,1)",
+          }}
         />
       </div>
 
@@ -99,9 +103,12 @@ export default function Flashcards() {
               <p className="text-[12px] text-gray-300 mt-6">Tap to flip</p>
             </div>
           </div>
-          <div className="flip-card-face flip-card-back rounded-[1.25rem] bg-gray-900 flex items-center justify-center text-center p-8 shadow-[var(--shadow-lift)]">
+          <div
+            className="flip-card-face flip-card-back rounded-[1.25rem] flex items-center justify-center text-center p-8"
+            style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-accent)" }}
+          >
             <div>
-              <p className="text-[12px] font-medium text-gray-400 mb-4 tracking-wide uppercase">Answer</p>
+              <p className="text-[12px] font-medium text-white/70 mb-4 tracking-wide uppercase">Answer</p>
               <p className="text-[19px] text-white font-medium leading-snug">{card.answer}</p>
             </div>
           </div>

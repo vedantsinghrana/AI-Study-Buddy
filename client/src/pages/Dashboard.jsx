@@ -16,9 +16,9 @@ import api from "../api/axios";
 import { PageLoader } from "../components/Spinner";
 
 function accuracyColor(accuracy) {
-  if (accuracy < 50) return "#dc2626";
-  if (accuracy < 75) return "#d97706";
-  return "#16a34a";
+  if (accuracy < 50) return "#ef4444";
+  if (accuracy < 75) return "#f59e0b";
+  return "#22c55e";
 }
 
 const tooltipStyle = {
@@ -134,9 +134,9 @@ export default function Dashboard() {
                 <Line
                   type="monotone"
                   dataKey="percentage"
-                  stroke="#0071e3"
+                  stroke="#2f6fed"
                   strokeWidth={2.5}
-                  dot={{ r: 4, fill: "#0071e3", strokeWidth: 0 }}
+                  dot={{ r: 4, fill: "#2f6fed", strokeWidth: 0 }}
                   activeDot={{ r: 6 }}
                 />
               </LineChart>

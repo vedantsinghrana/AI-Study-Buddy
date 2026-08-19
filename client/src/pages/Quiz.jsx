@@ -59,7 +59,7 @@ export default function Quiz() {
   if (result) {
     const resultMap = new Map(result.results.map((r) => [r.questionId, r]));
     const pct = Math.round((result.score / result.total) * 100);
-    const ringColor = pct >= 75 ? "#16a34a" : pct >= 50 ? "#d97706" : "#dc2626";
+    const ringColor = pct >= 75 ? "#22c55e" : pct >= 50 ? "#f59e0b" : "#ef4444";
     const circumference = 2 * Math.PI * 42;
 
     return (
@@ -145,10 +145,14 @@ export default function Quiz() {
 
   return (
     <div className="max-w-2xl mx-auto px-5 py-14 animate-fade-in-up">
-      <div className="h-1 bg-black/[0.06] rounded-full mb-6 overflow-hidden">
+      <div className="h-1 bg-blue-50 rounded-full mb-6 overflow-hidden">
         <div
-          className="h-full bg-gray-900 rounded-full"
-          style={{ width: `${progress}%`, transition: "width 0.35s cubic-bezier(0.16,1,0.3,1)" }}
+          className="h-full rounded-full"
+          style={{
+            width: `${progress}%`,
+            background: "var(--gradient-primary)",
+            transition: "width 0.35s cubic-bezier(0.16,1,0.3,1)",
+          }}
         />
       </div>
 
@@ -169,9 +173,10 @@ export default function Quiz() {
               onClick={() => selectOption(question.id, option)}
               className={`w-full text-left px-4 py-3.5 rounded-xl text-[15px] flex items-center gap-3 transition-all duration-150 ${
                 isSelected
-                  ? "bg-gray-900 text-white shadow-md"
+                  ? "text-white shadow-md"
                   : "card-surface text-gray-700 hover:shadow-md hover:-translate-y-0.5"
               }`}
+              style={isSelected ? { background: "var(--gradient-primary)" } : undefined}
             >
               <span
                 className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${

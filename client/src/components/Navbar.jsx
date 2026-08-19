@@ -9,7 +9,7 @@ function NavLink({ to, children }) {
     <Link
       to={to}
       className={`px-3 py-1.5 rounded-full text-[13px] font-medium transition-colors ${
-        active ? "bg-black/[0.06] text-gray-900" : "text-gray-500 hover:text-gray-900 hover:bg-black/[0.04]"
+        active ? "bg-blue-50 text-blue-700" : "text-gray-500 hover:text-gray-900 hover:bg-black/[0.04]"
       }`}
     >
       {children}
@@ -32,7 +32,10 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/70 border-b border-black/[0.06]">
       <div className="max-w-5xl mx-auto px-5 h-14 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 font-semibold text-[15px] tracking-tight text-gray-900">
-          <span className="w-6 h-6 rounded-lg bg-gradient-to-br from-gray-900 to-gray-600 flex items-center justify-center text-white text-[11px] font-bold">
+          <span
+            className="w-6 h-6 rounded-lg flex items-center justify-center text-white text-[11px] font-bold"
+            style={{ background: "var(--gradient-brand)" }}
+          >
             A
           </span>
           AI Study Buddy
@@ -45,7 +48,10 @@ export default function Navbar() {
 
             <div className="w-px h-5 bg-black/[0.08] mx-2" />
 
-            <div className="w-7 h-7 rounded-full bg-gray-900 text-white text-[12px] font-semibold flex items-center justify-center">
+            <div
+              className="w-7 h-7 rounded-full text-white text-[12px] font-semibold flex items-center justify-center"
+              style={{ background: "var(--gradient-primary)" }}
+            >
               {initial}
             </div>
             <button

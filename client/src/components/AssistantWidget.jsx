@@ -43,7 +43,10 @@ export default function AssistantWidget() {
         <div className="card-surface w-80 sm:w-96 mb-3 overflow-hidden animate-fade-in-up flex flex-col" style={{ height: 440 }}>
           <div className="px-4 py-3.5 border-b border-black/[0.06] flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-lg bg-gradient-to-br from-gray-900 to-gray-600 flex items-center justify-center text-white text-[10px] font-bold">
+              <span
+                className="w-6 h-6 rounded-lg flex items-center justify-center text-white text-[10px] font-bold"
+                style={{ background: "var(--gradient-brand)" }}
+              >
                 A
               </span>
               <h2 className="text-[14px] font-medium text-gray-800">Need help?</h2>
@@ -70,10 +73,9 @@ export default function AssistantWidget() {
               <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"} animate-fade-in`}>
                 <div
                   className={`max-w-[85%] rounded-2xl px-3.5 py-2 text-[13.5px] leading-relaxed whitespace-pre-wrap ${
-                    m.role === "user"
-                      ? "bg-gray-900 text-white rounded-br-md"
-                      : "bg-black/[0.045] text-gray-800 rounded-bl-md"
+                    m.role === "user" ? "text-white rounded-br-md" : "bg-black/[0.045] text-gray-800 rounded-bl-md"
                   }`}
+                  style={m.role === "user" ? { background: "var(--gradient-primary)" } : undefined}
                 >
                   {m.text}
                 </div>
@@ -114,7 +116,8 @@ export default function AssistantWidget() {
 
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-14 h-14 rounded-full bg-gray-900 text-white shadow-lg shadow-black/20 flex items-center justify-center hover:bg-black transition-all duration-150 active:scale-95"
+        className="w-14 h-14 rounded-full text-white flex items-center justify-center transition-all duration-150 active:scale-95 hover:brightness-105"
+        style={{ background: "var(--gradient-brand)", boxShadow: "var(--shadow-accent)" }}
         aria-label={open ? "Close help chat" : "Open help chat"}
       >
         {open ? (

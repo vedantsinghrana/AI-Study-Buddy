@@ -29,7 +29,10 @@ export default function Signup() {
     <div className="min-h-[calc(100vh-56px)] flex items-center justify-center px-4">
       <div className="w-full max-w-[380px] animate-fade-in-up">
         <div className="text-center mb-8">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-600 mx-auto mb-5 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-black/10">
+          <div
+            className="w-11 h-11 rounded-2xl mx-auto mb-5 flex items-center justify-center text-white font-bold text-lg"
+            style={{ background: "var(--gradient-brand)", boxShadow: "var(--shadow-accent)" }}
+          >
             A
           </div>
           <h1 className="text-[26px] font-semibold tracking-tight text-gray-900">Create your account</h1>
