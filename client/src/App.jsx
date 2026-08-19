@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
+import AssistantWidget from "./components/AssistantWidget";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Documents from "./pages/Documents";
@@ -59,6 +60,7 @@ export default function App() {
             }
           />
         </Routes>
+        <AssistantWidget />
       </div>
     </AuthProvider>
   );

@@ -80,6 +80,7 @@ Runs on `http://localhost:5173`.
 | GET    | /api/flashcards/due            | Yes  | Flashcards due for review right now (across all documents) |
 | POST   | /api/flashcards/:id/review     | Yes  | Body `{ correct: boolean }` — updates Leitner box and next review date |
 | POST   | /api/documents/:id/chat        | Yes  | Body `{ question: string }` — RAG answer grounded in this document's notes |
+| POST   | /api/assistant/chat            | Yes  | Body `{ question: string }` — general in-app help assistant (not document-grounded) |
 
 ## Screenshots
 
