@@ -32,6 +32,10 @@ export const quizGenerationSchema = z.object({
   questions: z.array(quizQuestionSchema).min(1),
 });
 
+export const chatSchema = z.object({
+  question: z.string().trim().min(1, "Question is required").max(1000),
+});
+
 export const reviewFlashcardSchema = z.object({
   correct: z.boolean(),
 });

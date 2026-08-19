@@ -1,7 +1,8 @@
 # AI Study Buddy
 
 Upload your notes (PDF or pasted text) and get AI-generated quizzes, flashcards,
-and a weak-topic analytics dashboard to guide your revision.
+a weak-topic analytics dashboard, and a chat assistant grounded in your own notes
+to guide your revision.
 
 ## Tech stack
 
@@ -18,7 +19,7 @@ and a weak-topic analytics dashboard to guide your revision.
 - [x] Phase 2 — AI quiz generation
 - [x] Phase 3 — Weak-topic analytics dashboard
 - [x] Phase 4 — Flashcards + spaced repetition
-- [ ] Phase 5 — Chat with your notes (RAG)
+- [x] Phase 5 — Chat with your notes (RAG)
 
 ## Project structure
 
@@ -78,6 +79,7 @@ Runs on `http://localhost:5173`.
 | POST   | /api/documents/:id/flashcards  | Yes  | Create flashcards from this document's current quiz questions |
 | GET    | /api/flashcards/due            | Yes  | Flashcards due for review right now (across all documents) |
 | POST   | /api/flashcards/:id/review     | Yes  | Body `{ correct: boolean }` — updates Leitner box and next review date |
+| POST   | /api/documents/:id/chat        | Yes  | Body `{ question: string }` — RAG answer grounded in this document's notes |
 
 ## Screenshots
 

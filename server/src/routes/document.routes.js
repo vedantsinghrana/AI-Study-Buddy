@@ -2,6 +2,7 @@ import { Router } from "express";
 import { createDocument, listDocuments, getDocument } from "../controllers/document.controller.js";
 import { generateQuiz, listQuestions } from "../controllers/quiz.controller.js";
 import { createFlashcardsForDocument } from "../controllers/flashcard.controller.js";
+import { chatWithDocument } from "../controllers/chat.controller.js";
 import { requireAuth } from "../middleware/auth.js";
 import { upload } from "../middleware/upload.js";
 
@@ -14,5 +15,6 @@ router.get("/:id", getDocument);
 router.post("/:id/generate-quiz", generateQuiz);
 router.get("/:id/questions", listQuestions);
 router.post("/:id/flashcards", createFlashcardsForDocument);
+router.post("/:id/chat", chatWithDocument);
 
 export default router;

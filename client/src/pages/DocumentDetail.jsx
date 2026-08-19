@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import api from "../api/axios";
+import ChatPanel from "../components/ChatPanel";
 
 export default function DocumentDetail() {
   const { id } = useParams();
@@ -116,6 +117,8 @@ export default function DocumentDetail() {
       </div>
 
       {flashcardMessage && <p className="text-sm text-gray-500 mt-3">{flashcardMessage}</p>}
+
+      <ChatPanel documentId={id} />
     </div>
   );
 }
