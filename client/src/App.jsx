@@ -8,6 +8,7 @@ import Documents from "./pages/Documents";
 import DocumentDetail from "./pages/DocumentDetail";
 import Quiz from "./pages/Quiz";
 import Dashboard from "./pages/Dashboard";
+import Flashcards from "./pages/Flashcards";
 
 export default function App() {
   return (
@@ -46,6 +47,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/flashcards"
+            element={
+              <ProtectedRoute>
+                <Flashcards />
               </ProtectedRoute>
             }
           />

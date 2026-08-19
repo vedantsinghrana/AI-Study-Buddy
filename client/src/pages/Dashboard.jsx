@@ -23,14 +23,20 @@ function accuracyColor(accuracy) {
 export default function Dashboard() {
   const [topics, setTopics] = useState(null);
   const [trend, setTrend] = useState(null);
+  const [dueCount, setDueCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    Promise.all([api.get("/analytics/weak-topics"), api.get("/analytics/score-trend")])
-      .then(([topicsRes, trendRes]) => {
+    Promise.all([
+      api.get("/analytics/weak-topics"),
+      api.get("/analytics/score-trend"),
+      api.get("/flashcards/due"),
+    ])
+      .then(([topicsRes, trendRes, dueRes]) => {
         setTopics(topicsRes.data.topics);
         setTrend(trendRes.data.attempts.map((a, i) => ({ ...a, label: `#${i + 1}` })));
+        setDueCount(dueRes.data.cards.length);
       })
       .catch((err) => setError(err.response?.data?.error || "Failed to load analytics"))
       .finally(() => setLoading(false));
@@ -39,10 +45,24 @@ export default function Dashboard() {
   if (loading) return <p className="text-sm text-gray-500 text-center mt-10">Loading...</p>;
   if (error) return <p className="text-sm text-red-600 text-center mt-10">{error}</p>;
 
+  const dueBanner = dueCount > 0 && (
+    <Link
+      to="/flashcards"
+      className="border border-gray-200 rounded-lg p-4 mb-8 hover:bg-gray-50 flex items-center justify-between"
+    >
+      <span className="text-sm text-gray-700">
+        <span className="font-semibold text-gray-900">{dueCount}</span> flashcard
+        {dueCount === 1 ? "" : "s"} due for review
+      </span>
+      <span className="text-sm font-medium text-gray-900">Review now &rarr;</span>
+    </Link>
+  );
+
   if (!topics || topics.length === 0) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-16 text-center">
         <h1 className="text-2xl font-semibold text-gray-900 mb-2">Dashboard</h1>
+        {dueBanner}
         <p className="text-sm text-gray-500 mb-4">
           Take a quiz on one of your documents to start seeing analytics here.
         </p>
@@ -56,6 +76,8 @@ export default function Dashboard() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-semibold text-gray-900 mb-8">Dashboard</h1>
+
+      {dueBanner}
 
       <section className="mb-10">
         <h2 className="text-sm font-medium text-gray-700 mb-3">Accuracy by topic</h2>

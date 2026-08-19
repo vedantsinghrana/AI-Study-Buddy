@@ -14,6 +14,9 @@ export default function DocumentDetail() {
   const [generating, setGenerating] = useState(false);
   const [generateError, setGenerateError] = useState("");
 
+  const [addingFlashcards, setAddingFlashcards] = useState(false);
+  const [flashcardMessage, setFlashcardMessage] = useState("");
+
   useEffect(() => {
     Promise.all([
       api.get(`/documents/${id}`),
@@ -37,6 +40,19 @@ export default function DocumentDetail() {
       setGenerateError(err.response?.data?.error || "Failed to generate quiz. Please try again.");
     } finally {
       setGenerating(false);
+    }
+  }
+
+  async function handleAddFlashcards() {
+    setFlashcardMessage("");
+    setAddingFlashcards(true);
+    try {
+      const { data } = await api.post(`/documents/${id}/flashcards`);
+      setFlashcardMessage(`${data.count} flashcards ready for review.`);
+    } catch (err) {
+      setFlashcardMessage(err.response?.data?.error || "Failed to create flashcards. Please try again.");
+    } finally {
+      setAddingFlashcards(false);
     }
   }
 
@@ -87,7 +103,19 @@ export default function DocumentDetail() {
             Focus on weak topics
           </button>
         )}
+        {hasQuiz && (
+          <button
+            type="button"
+            onClick={handleAddFlashcards}
+            disabled={addingFlashcards}
+            className="rounded-md px-4 py-2 text-sm font-medium border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+          >
+            {addingFlashcards ? "Adding..." : "Add to flashcards"}
+          </button>
+        )}
       </div>
+
+      {flashcardMessage && <p className="text-sm text-gray-500 mt-3">{flashcardMessage}</p>}
     </div>
   );
 }

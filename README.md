@@ -17,7 +17,7 @@ and a weak-topic analytics dashboard to guide your revision.
 - [x] Phase 1 — Auth + document upload (PDF/text extraction)
 - [x] Phase 2 — AI quiz generation
 - [x] Phase 3 — Weak-topic analytics dashboard
-- [ ] Phase 4 — Flashcards + spaced repetition
+- [x] Phase 4 — Flashcards + spaced repetition
 - [ ] Phase 5 — Chat with your notes (RAG)
 
 ## Project structure
@@ -75,6 +75,9 @@ Runs on `http://localhost:5173`.
 | POST   | /api/quiz/:documentId/submit   | Yes  | Submit answers, get scored, save attempt |
 | GET    | /api/analytics/weak-topics     | Yes  | Accuracy % per topic across all attempts, weakest first |
 | GET    | /api/analytics/score-trend     | Yes  | Score % per attempt over time, oldest first |
+| POST   | /api/documents/:id/flashcards  | Yes  | Create flashcards from this document's current quiz questions |
+| GET    | /api/flashcards/due            | Yes  | Flashcards due for review right now (across all documents) |
+| POST   | /api/flashcards/:id/review     | Yes  | Body `{ correct: boolean }` — updates Leitner box and next review date |
 
 ## Screenshots
 

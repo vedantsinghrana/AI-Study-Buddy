@@ -32,6 +32,10 @@ export const quizGenerationSchema = z.object({
   questions: z.array(quizQuestionSchema).min(1),
 });
 
+export const reviewFlashcardSchema = z.object({
+  correct: z.boolean(),
+});
+
 export const submitQuizSchema = z.object({
   answers: z
     .array(

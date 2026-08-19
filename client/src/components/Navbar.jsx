@@ -21,6 +21,9 @@ export default function Navbar() {
             <Link to="/dashboard" className="text-gray-600 hover:text-gray-900">
               Dashboard
             </Link>
+            <Link to="/flashcards" className="text-gray-600 hover:text-gray-900">
+              Flashcards
+            </Link>
             <span className="text-gray-500">{user.name}</span>
             <button
               onClick={handleLogout}
