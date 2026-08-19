@@ -5,6 +5,7 @@ import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/auth.routes.js";
 import documentRoutes from "./routes/document.routes.js";
 import quizRoutes from "./routes/quiz.routes.js";
+import analyticsRoutes from "./routes/analytics.routes.js";
 import { notFoundHandler, errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
@@ -16,6 +17,7 @@ app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 app.use("/api/auth", authRoutes);
 app.use("/api/documents", documentRoutes);
 app.use("/api/quiz", quizRoutes);
+app.use("/api/analytics", analyticsRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Document from "../models/Document.js";
 import Question from "../models/Question.js";
 import QuizAttempt from "../models/QuizAttempt.js";
@@ -5,8 +6,30 @@ import { AppError } from "../middleware/errorHandler.js";
 import { submitQuizSchema } from "../utils/validation.js";
 import { generateQuizQuestions } from "../services/quizGenerator.js";
 
+const WEAK_TOPIC_THRESHOLD = 0.7;
+
 function sanitizeQuestion(q) {
   return { id: q._id, question: q.question, options: q.options, topic: q.topic, difficulty: q.difficulty };
+}
+
+async function findWeakTopicsForDocument(userId, documentId) {
+  const results = await QuizAttempt.aggregate([
+    { $match: { userId: new mongoose.Types.ObjectId(userId), documentId: new mongoose.Types.ObjectId(documentId) } },
+    { $unwind: "$answers" },
+    {
+      $group: {
+        _id: "$answers.topic",
+        correct: { $sum: { $cond: ["$answers.correct", 1, 0] } },
+        total: { $sum: 1 },
+      },
+    },
+    { $project: { topic: "$_id", accuracy: { $divide: ["$correct", "$total"] } } },
+    { $match: { accuracy: { $lt: WEAK_TOPIC_THRESHOLD } } },
+    { $sort: { accuracy: 1 } },
+    { $limit: 5 },
+  ]);
+
+  return results.map((r) => r.topic);
 }
 
 export async function generateQuiz(req, res, next) {
@@ -16,9 +39,17 @@ export async function generateQuiz(req, res, next) {
       throw new AppError(404, "Document not found");
     }
 
+    let focusTopics;
+    if (req.body?.focusWeakTopics === true) {
+      focusTopics = await findWeakTopicsForDocument(req.userId, document._id);
+      if (focusTopics.length === 0) {
+        throw new AppError(400, "No weak topics found yet. Take the quiz at least once first.");
+      }
+    }
+
     let questions;
     try {
-      questions = await generateQuizQuestions(document.rawText);
+      questions = await generateQuizQuestions(document.rawText, focusTopics);
     } catch (genErr) {
       console.error("Quiz generation failed:", genErr.message);
       throw new AppError(502, "Failed to generate quiz questions. Please try again.");

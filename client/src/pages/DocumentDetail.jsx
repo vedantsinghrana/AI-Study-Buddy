@@ -27,11 +27,11 @@ export default function DocumentDetail() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  async function handleGenerateQuiz() {
+  async function handleGenerateQuiz(focusWeakTopics = false) {
     setGenerateError("");
     setGenerating(true);
     try {
-      await api.post(`/documents/${id}/generate-quiz`);
+      await api.post(`/documents/${id}/generate-quiz`, { focusWeakTopics });
       navigate(`/documents/${id}/quiz`);
     } catch (err) {
       setGenerateError(err.response?.data?.error || "Failed to generate quiz. Please try again.");
@@ -67,7 +67,7 @@ export default function DocumentDetail() {
         )}
         <button
           type="button"
-          onClick={handleGenerateQuiz}
+          onClick={() => handleGenerateQuiz(false)}
           disabled={generating}
           className={`rounded-md px-4 py-2 text-sm font-medium border disabled:opacity-50 ${
             hasQuiz
@@ -77,6 +77,16 @@ export default function DocumentDetail() {
         >
           {generating ? "Generating quiz..." : hasQuiz ? "Regenerate quiz" : "Generate quiz"}
         </button>
+        {hasQuiz && (
+          <button
+            type="button"
+            onClick={() => handleGenerateQuiz(true)}
+            disabled={generating}
+            className="rounded-md px-4 py-2 text-sm font-medium border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+          >
+            Focus on weak topics
+          </button>
+        )}
       </div>
     </div>
   );

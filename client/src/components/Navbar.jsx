@@ -18,6 +18,9 @@ export default function Navbar() {
         </Link>
         {user && (
           <div className="flex items-center gap-4 text-sm">
+            <Link to="/dashboard" className="text-gray-600 hover:text-gray-900">
+              Dashboard
+            </Link>
             <span className="text-gray-500">{user.name}</span>
             <button
               onClick={handleLogout}

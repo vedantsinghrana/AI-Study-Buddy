@@ -16,7 +16,7 @@ and a weak-topic analytics dashboard to guide your revision.
 
 - [x] Phase 1 — Auth + document upload (PDF/text extraction)
 - [x] Phase 2 — AI quiz generation
-- [ ] Phase 3 — Weak-topic analytics dashboard
+- [x] Phase 3 — Weak-topic analytics dashboard
 - [ ] Phase 4 — Flashcards + spaced repetition
 - [ ] Phase 5 — Chat with your notes (RAG)
 
@@ -70,9 +70,11 @@ Runs on `http://localhost:5173`.
 | POST   | /api/documents                 | Yes  | Upload a PDF or paste text               |
 | GET    | /api/documents                 | Yes  | List your documents                      |
 | GET    | /api/documents/:id             | Yes  | Get one document                         |
-| POST   | /api/documents/:id/generate-quiz | Yes | Generate a 10-question quiz (Gemini)   |
+| POST   | /api/documents/:id/generate-quiz | Yes | Generate a 10-question quiz (Gemini). Body `{ focusWeakTopics: true }` targets this document's weak topics with harder questions |
 | GET    | /api/documents/:id/questions   | Yes  | Get the current quiz questions (no answers) |
 | POST   | /api/quiz/:documentId/submit   | Yes  | Submit answers, get scored, save attempt |
+| GET    | /api/analytics/weak-topics     | Yes  | Accuracy % per topic across all attempts, weakest first |
+| GET    | /api/analytics/score-trend     | Yes  | Score % per attempt over time, oldest first |
 
 ## Screenshots
 
