@@ -25,44 +25,58 @@ export default function Login() {
   }
 
   return (
-    <div className="max-w-sm mx-auto mt-16 px-4">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-6">Log in</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm text-gray-700 mb-1">Email</label>
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
-          />
+    <div className="min-h-[calc(100vh-56px)] flex items-center justify-center px-4">
+      <div className="w-full max-w-[380px] animate-fade-in-up">
+        <div className="text-center mb-8">
+          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-600 mx-auto mb-5 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-black/10">
+            A
+          </div>
+          <h1 className="text-[26px] font-semibold tracking-tight text-gray-900">Welcome back</h1>
+          <p className="text-[15px] text-gray-500 mt-1">Log in to continue studying</p>
         </div>
-        <div>
-          <label className="block text-sm text-gray-700 mb-1">Password</label>
-          <input
-            type="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
-          />
-        </div>
-        {error && <p className="text-sm text-red-600">{error}</p>}
-        <button
-          type="submit"
-          disabled={submitting}
-          className="w-full bg-gray-900 text-white rounded-md py-2 text-sm font-medium hover:bg-gray-800 disabled:opacity-50"
-        >
-          {submitting ? "Logging in..." : "Log in"}
-        </button>
-      </form>
-      <p className="text-sm text-gray-500 mt-4">
-        Don't have an account?{" "}
-        <Link to="/signup" className="text-gray-900 font-medium">
-          Sign up
-        </Link>
-      </p>
+
+        <form onSubmit={handleSubmit} className="card-surface p-6 space-y-4">
+          <div>
+            <label className="block text-[13px] font-medium text-gray-600 mb-1.5">Email</label>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="input-field w-full px-3.5 py-2.5 text-[15px] text-gray-900"
+            />
+          </div>
+          <div>
+            <label className="block text-[13px] font-medium text-gray-600 mb-1.5">Password</label>
+            <input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="input-field w-full px-3.5 py-2.5 text-[15px] text-gray-900"
+            />
+          </div>
+
+          {error && (
+            <p className="text-[13px] text-red-600 bg-red-50 rounded-lg px-3 py-2 animate-fade-in">{error}</p>
+          )}
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="btn-primary w-full py-2.5 text-[15px] disabled:opacity-40"
+          >
+            {submitting ? "Logging in..." : "Log in"}
+          </button>
+        </form>
+
+        <p className="text-[14px] text-gray-500 mt-6 text-center">
+          Don't have an account?{" "}
+          <Link to="/signup" className="text-gray-900 font-medium hover:underline underline-offset-2">
+            Sign up
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

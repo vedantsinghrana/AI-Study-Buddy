@@ -13,7 +13,7 @@ import Flashcards from "./pages/Flashcards";
 export default function App() {
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen" style={{ background: "var(--color-canvas)" }}>
         <Navbar />
         <Routes>
           <Route path="/login" element={<Login />} />
