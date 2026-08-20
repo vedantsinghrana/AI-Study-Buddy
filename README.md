@@ -59,6 +59,47 @@ npm run dev
 
 Runs on `http://localhost:5173`.
 
+## Deployment (free tier)
+
+This app runs entirely on free tiers: **MongoDB Atlas** (database), **Render** (backend),
+and **Vercel** (frontend).
+
+### 1. Database — MongoDB Atlas
+
+1. Create a free account at [mongodb.com/atlas](https://www.mongodb.com/atlas) and a free **M0** cluster.
+2. **Database Access** → add a database user (username + password).
+3. **Network Access** → add IP address `0.0.0.0/0` (allow from anywhere — Render's free tier has no static IP).
+4. **Connect** → **Drivers** → copy the `mongodb+srv://...` connection string. Insert your password
+   and add the database name before the `?`, e.g.:
+   `mongodb+srv://user:pass@cluster0.xxxxx.mongodb.net/ai-study-buddy?retryWrites=true&w=majority`
+
+### 2. Backend — Render
+
+1. Create a free account at [render.com](https://render.com) and sign in with GitHub.
+2. **New** → **Blueprint** → select this repo. Render will read [render.yaml](render.yaml) and
+   pre-fill the service (root dir `server`, build/start commands, free plan).
+   (No blueprint support? Create a **Web Service** manually with the same settings.)
+3. Fill in the environment variables it asks for: `MONGO_URI` (from step 1), `JWT_ACCESS_SECRET`
+   and `JWT_REFRESH_SECRET` (any long random strings), `GEMINI_API_KEY`. Leave `CLIENT_URL` blank
+   for now — you'll set it after deploying the frontend.
+4. Deploy and note the resulting URL, e.g. `https://ai-study-buddy-api.onrender.com`.
+
+Render's free plan spins the service down after 15 minutes of inactivity — the first request
+after idle takes 30–50s to wake up. Fine for a portfolio demo, worth knowing about beforehand.
+
+### 3. Frontend — Vercel
+
+1. Create a free account at [vercel.com](https://vercel.com) and sign in with GitHub.
+2. **New Project** → import this repo → set **Root Directory** to `client` (Vite is auto-detected).
+3. Add environment variable `VITE_API_URL` = `https://ai-study-buddy-api.onrender.com/api`
+   (your Render URL from step 2, with `/api` appended).
+4. Deploy and note the resulting URL, e.g. `https://ai-study-buddy.vercel.app`.
+
+### 4. Connect the two
+
+Go back to the Render service → environment variables → set `CLIENT_URL` to your Vercel URL
+(step 3). Render redeploys automatically and CORS will allow requests from the live frontend.
+
 ## API
 
 | Method | Route                          | Auth | Description                             |
