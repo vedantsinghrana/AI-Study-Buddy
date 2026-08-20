@@ -12,9 +12,13 @@ export async function createDocument(req, res, next) {
 
     if (req.file) {
       const buffer = await fs.readFile(req.file.path);
-      const parsed = await pdfParse(buffer);
-      rawText = parsed.text.trim();
       await fs.unlink(req.file.path).catch(() => {});
+      try {
+        const parsed = await pdfParse(buffer);
+        rawText = parsed.text.trim();
+      } catch {
+        throw new AppError(400, "Couldn't read that PDF. It may be corrupted, password-protected, or image-only.");
+      }
     }
 
     if (!rawText) {
